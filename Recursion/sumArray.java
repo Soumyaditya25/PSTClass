@@ -1,4 +1,4 @@
-//sum of array using recursion
+// sum of array using recursion
 
 public class sumArray {
     public static int sumarray(int[] arr, int i) {

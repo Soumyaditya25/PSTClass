@@ -13,7 +13,7 @@ public class reverseAndsumArray {
         if (arr.length == 0) {
             return 0;
         }
-        // Create new array without first element since Java doesn't have slice method
+        //Create new array without first element since Java doesn't have slice method
         int[] newArr = new int[arr.length - 1];
         System.arraycopy(arr, 1, newArr, 0, arr.length - 1);
         return arr[0] + sumArr(newArr);
