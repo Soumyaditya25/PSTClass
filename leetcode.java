@@ -1,49 +1,73 @@
-// Write an algorithm to determine if a number n is happy.
+// Given an integer n, find a sequence that satisfies all of the following:
 
-// A happy number is a number defined by the following process:
+// The integer 1 occurs once in the sequence.
+// Each integer between 2 and n occurs twice in the sequence.
+// For every integer i between 2 and n, the distance between the two occurrences of i is exactly i.
+// The distance between two numbers on the sequence, a[i] and a[j], is the absolute difference of their indices, |j - i|.
 
-// Starting with any positive integer, replace the number by the sum of the squares of its digits.
-// Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
-// Those numbers for which this process ends in 1 are happy.
-// Return true if n is a happy number, and false if not.
+// Return the lexicographically largest sequence. It is guaranteed that under the given constraints, there is always a solution.
+
+// A sequence a is lexicographically larger than a sequence b (of the same length) if in the first position where a and b differ, sequence a has a number greater than the corresponding number in b. For example, [0,1,9,0] is lexicographically larger than [0,1,5,6] because the first position they differ is at the third number, and 9 is greater than 5.
 
  
 
 // Example 1:
 
-// Input: n = 19
-// Output: true
-// Explanation:
-// 12 + 92 = 82
-// 82 + 22 = 68
-// 62 + 82 = 100
-// 12 + 02 + 02 = 1
+// Input: n = 3
+// Output: [3,1,2,3,2]
+// Explanation: [2,3,2,1,3] is also a valid sequence, but [3,1,2,3,2] is the lexicographically largest valid sequence.
 // Example 2:
 
-// Input: n = 2
-// Output: false
+// Input: n = 5
+// Output: [5,3,1,4,3,5,2,4,2]
  
 
 // Constraints:
 
-// 1 <= n <= 231 - 1
+// 1 <= n <= 20
 import java.util.*;
 class leetcode {
-    public boolean isHappy(int n) {
-        Set<Integer> set = new HashSet<>();
-        while(n!=1){
-            if(set.contains(n)){
-                return false;
-            }
-            set.add(n);
-            int sum=0;
-            while(n>0){
-                int rem=n%10;
-                sum+=rem*rem;
-                n=n/10;
-            }
-            n=sum;
+    public static void main(String[] args) {
+        int n = 3;
+        System.out.println(Arrays.toString(constructDistancedSequence(n)));
+    }
+    public static int[] constructDistancedSequence(int n) {
+        int[] ans = new int[2*n-1];
+        boolean[] visited = new boolean[n+1];
+        solve(ans, visited, 0, n);
+        return ans;
+    }
+    public static boolean solve(int[] ans, boolean[] visited, int index, int n){
+        if(index==ans.length){
+            return true;
         }
-        return true;
+        if(ans[index]!=0){
+            return solve(ans, visited, index+1, n);
+        }
+        for(int i=n;i>=1;i--){
+            if(visited[i]){
+                continue;
+            }
+            if(i==1){
+                visited[i] = true;
+                ans[index] = i;
+                if(solve(ans, visited, index+1, n)){
+                    return true;
+                }
+                visited[i] = false;
+                ans[index] = 0;
+            }else if(index+i<ans.length && ans[index+i]==0){
+                visited[i] = true;
+                ans[index] = i;
+                ans[index+i] = i;
+                if(solve(ans, visited, index+1, n)){
+                    return true;
+                }
+                visited[i] = false;
+                ans[index] = 0;
+                ans[index+i] = 0;
+            }
+        }
+        return false;
     }
 }
