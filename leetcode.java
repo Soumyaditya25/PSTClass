@@ -1,73 +1,46 @@
-// Given an integer n, find a sequence that satisfies all of the following:
-
-// The integer 1 occurs once in the sequence.
-// Each integer between 2 and n occurs twice in the sequence.
-// For every integer i between 2 and n, the distance between the two occurrences of i is exactly i.
-// The distance between two numbers on the sequence, a[i] and a[j], is the absolute difference of their indices, |j - i|.
-
-// Return the lexicographically largest sequence. It is guaranteed that under the given constraints, there is always a solution.
-
-// A sequence a is lexicographically larger than a sequence b (of the same length) if in the first position where a and b differ, sequence a has a number greater than the corresponding number in b. For example, [0,1,9,0] is lexicographically larger than [0,1,5,6] because the first position they differ is at the third number, and 9 is greater than 5.
+// Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
 
  
 
 // Example 1:
 
-// Input: n = 3
-// Output: [3,1,2,3,2]
-// Explanation: [2,3,2,1,3] is also a valid sequence, but [3,1,2,3,2] is the lexicographically largest valid sequence.
+// Input: head = [1,2,3,4]
+
+// Output: [2,1,4,3]
+
+// Explanation:
+
+
+
 // Example 2:
 
-// Input: n = 5
-// Output: [5,3,1,4,3,5,2,4,2]
+// Input: head = []
+
+// Output: []
+
+// Example 3:
+
+// Input: head = [1]
+
+// Output: [1]
+
+// Example 4:
+
+// Input: head = [1,2,3]
+
+// Output: [2,1,3]
+
  
 
 // Constraints:
 
-// 1 <= n <= 20
+// The number of nodes in the list is in the range [0, 100].
+// 0 <= Node.val <= 100
+
+
 import java.util.*;
-class leetcode {
-    public static void main(String[] args) {
-        int n = 3;
-        System.out.println(Arrays.toString(constructDistancedSequence(n)));
-    }
-    public static int[] constructDistancedSequence(int n) {
-        int[] ans = new int[2*n-1];
-        boolean[] visited = new boolean[n+1];
-        solve(ans, visited, 0, n);
-        return ans;
-    }
-    public static boolean solve(int[] ans, boolean[] visited, int index, int n){
-        if(index==ans.length){
-            return true;
-        }
-        if(ans[index]!=0){
-            return solve(ans, visited, index+1, n);
-        }
-        for(int i=n;i>=1;i--){
-            if(visited[i]){
-                continue;
-            }
-            if(i==1){
-                visited[i] = true;
-                ans[index] = i;
-                if(solve(ans, visited, index+1, n)){
-                    return true;
-                }
-                visited[i] = false;
-                ans[index] = 0;
-            }else if(index+i<ans.length && ans[index+i]==0){
-                visited[i] = true;
-                ans[index] = i;
-                ans[index+i] = i;
-                if(solve(ans, visited, index+1, n)){
-                    return true;
-                }
-                visited[i] = false;
-                ans[index] = 0;
-                ans[index+i] = 0;
-            }
-        }
-        return false;
-    }
+
+public class leetcode {
+        
+    
 }
