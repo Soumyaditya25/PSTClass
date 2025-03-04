@@ -21,9 +21,10 @@
         }
 
         let debounceDisplay = debounce(display, 1000);
+        let throttleDisplay = throttle(display, 1000);
 
         input.addEventListener('input', (e) => {
-            debounceDisplay(e.target.value);
+            throttleDisplay(e.target.value);
         });
 
         function debounce(func, timer) {
@@ -33,6 +34,25 @@
                 timeout = setTimeout(() => {
                     func.apply(this, args);
                 }, timer);
+            }
+        }
+
+        function throttle(func, timer) {
+            let timeout;
+            let lastRan;
+            return function(...args){
+                if(!lastRan){
+                    func(args);
+                    lastRan = Date.now();
+                }else{
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        if((Date.now() - lastRan) >= timer){
+                            func(args);
+                            lastRan = Date.now();
+                        }
+                    }, timer - (Date.now() - lastRan));
+                }
             }
         }
     </script>
