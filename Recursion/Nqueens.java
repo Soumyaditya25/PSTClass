@@ -5,6 +5,7 @@ public class Nqueens {
         int n = sc.nextInt();
         int[][] chess = new int[n][n];
         printNqueens(0, chess, "");
+        sc.close();
     }
 
     public static void printNqueens(int row, int[][] chess, String ans) {
