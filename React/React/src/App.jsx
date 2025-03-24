@@ -1,31 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react';
+import Greetings from './Greetings';
+import Border from './Border';
+import Welcome from './Welcome';
 
-const App = () => {
-  const[count, setCount]=useState(0);
-  function increament(){
-    setCount(count+1);
-  }
-  function decreament(){
-    setCount(count-1);
-  }
+function App() {
   return (
-    <>
-    <App2 />
-    <div >{count}</div>
-    <button onClick={increament}>Click Me +</button>
-    <button onClick={decreament}>Click Me -</button>
-    </>
-
-  )
+    <div>
+      <Greetings render={(arr) => arr.map((name, index) => <span key={index}> Hi {name}<br></br></span>)} />
+      <Border>
+        <Greetings render={(arr) => arr.map((name, index) => <span key={index}> Hi {name}<br></br></span>)} />
+      </Border>
+      <Welcome name="Soumya"/>
+      <Welcome name="YUG"/>
+    </div>
+  );
 }
 
-
-const App2 = () => (
-  <>
-    <div>
-      <h1>Anshuman kah ( . ) ( . ) kah size</h1>
-    </div>
-  </>
-)
-
-export default App
+export default App;
