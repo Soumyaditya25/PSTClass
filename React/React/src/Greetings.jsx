@@ -1,12 +1,17 @@
-import React from 'react';
+import {Component} from 'react';
 
-const Greetings = ({ render }) => {
-  const arr = ["Yug", "Soumya"];
-  return (
-    <div>
-      <h2>{render(arr)}</h2>
-    </div>
-  );
-};
+class Greetings extends Component {
+    static defaultProps = {
+        name: 'Somuu',
+    }
+    render() {
+        return (
+            <div>
+                <h1>Hello, {this.props.name}!</h1>
+                <p>{this.props.children}</p>
+            </div>
+        );
+    }
+}
 
 export default Greetings;
