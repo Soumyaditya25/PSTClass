@@ -1,6 +1,4 @@
-
-    // import java.util.*;
-
+// import java.util.*;
 class Node{
     int data;
     Node left;
@@ -30,6 +28,9 @@ public class TreeMethod {
         System.out.println(max_value(root));
         System.out.println("height of binary tree is:");
         System.out.println(heightOfTree(root));
+        System.out.println("search in binary tree is:");
+        System.out.println(search(root, 5)); // true
+        System.out.println(search(root, 8)); // false
     }
     public static int sizeOfTree(Node root) {
         if (root == null) {
@@ -68,5 +69,14 @@ public class TreeMethod {
         int leftHeight = heightOfTree(root.left);
         int rightHeight = heightOfTree(root.right);
         return Math.max(leftHeight, rightHeight) + 1; // +1 for the current node
+    }
+    public static boolean search(Node root, int key) {
+        if (root == null) {
+            return false;
+        }
+        if (root.data == key) {
+            return true;
+        }
+        return search(root.left, key) || search(root.right, key);
     }
 }
